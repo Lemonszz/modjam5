@@ -8,6 +8,9 @@ import net.minecraft.client.gui.inventory.GuiInventory;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.client.config.GuiButtonExt;
+import party.lemons.yatm.YATM;
+import party.lemons.yatm.capability.PlayerData;
+import party.lemons.yatm.message.MessageSetMobFromGui;
 import party.lemons.yatm.playermobs.PlayerMob;
 import party.lemons.yatm.playermobs.PlayerMobRegistry;
 import party.lemons.yatm.playermobs.PlayerMobs;
@@ -21,7 +24,7 @@ public class GuiSelectMob extends GuiScreen
 {
 	final int BUTTON_WIDTH = 100;
 	final int BUTTON_HEIGHT = 20;
-	final int BUTTON_X = 200;
+	final int BUTTON_X = 10;
 	final int BUTTON_START_Y = 10;
 
 	private PlayerMob selected = PlayerMobs.PLAYER;
@@ -55,7 +58,7 @@ public class GuiSelectMob extends GuiScreen
 
 		if(renderMob != null)
 		{
-			GuiInventory.drawEntityOnScreen(100, 150, 50, 25, 25, renderMob);
+			GuiInventory.drawEntityOnScreen(x_mid, y_mid , 50, 25, 25, renderMob);
 		}
 
 		super.drawScreen(mouseX, mouseY, partialTicks);
@@ -70,7 +73,7 @@ public class GuiSelectMob extends GuiScreen
 		}
 
 		button_done = ind++;
-		this.buttonList.add(new GuiButtonExt(button_done, BUTTON_X, BUTTON_START_Y + (BUTTON_HEIGHT * button_done) + BUTTON_HEIGHT, BUTTON_WIDTH, BUTTON_HEIGHT, "yatm.gui.done"));
+		this.buttonList.add(new GuiButtonExt(button_done, BUTTON_X, BUTTON_START_Y + (BUTTON_HEIGHT * button_done + 1) + (BUTTON_HEIGHT * 3), BUTTON_WIDTH, BUTTON_HEIGHT, "yatm.gui.done"));
 	}
 
 	protected void actionPerformed(GuiButton button) throws IOException
@@ -84,6 +87,9 @@ public class GuiSelectMob extends GuiScreen
 
 		if(button.id == button_done)
 		{
+			YATM.NETWORK.sendToServer(new MessageSetMobFromGui(selected));
+			Minecraft.getMinecraft().player.getCapability(PlayerData.CAPABILITY, null).setMob(selected);
+
 			Minecraft.getMinecraft().displayGuiScreen(null);
 		}
 

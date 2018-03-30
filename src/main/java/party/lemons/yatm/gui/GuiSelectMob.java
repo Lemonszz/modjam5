@@ -3,9 +3,11 @@ package party.lemons.yatm.gui;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.gui.inventory.GuiInventory;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.client.config.GuiButtonExt;
 import party.lemons.yatm.playermobs.PlayerMob;
 import party.lemons.yatm.playermobs.PlayerMobRegistry;
 import party.lemons.yatm.playermobs.PlayerMobs;
@@ -25,8 +27,14 @@ public class GuiSelectMob extends GuiScreen
 	private PlayerMob selected = PlayerMobs.PLAYER;
 	private EntityLivingBase renderMob = null;
 
+	private int button_done = -1;
+
 	public void drawScreen(int mouseX, int mouseY, float partialTicks)
 	{
+		ScaledResolution res = new ScaledResolution(Minecraft.getMinecraft());
+		int x_mid = res.getScaledWidth() / 2;
+		int y_mid = res.getScaledHeight() / 2;
+
 		this.drawDefaultBackground();
 
 		try
@@ -47,7 +55,7 @@ public class GuiSelectMob extends GuiScreen
 
 		if(renderMob != null)
 		{
-			GuiInventory.drawEntityOnScreen(10, 10, 1, mouseX, mouseY, renderMob);
+			GuiInventory.drawEntityOnScreen(100, 150, 50, 25, 25, renderMob);
 		}
 
 		super.drawScreen(mouseX, mouseY, partialTicks);
@@ -60,6 +68,9 @@ public class GuiSelectMob extends GuiScreen
 		{
 			this.buttonList.add(new GuiButtonPlayerMob(ind++, BUTTON_X, BUTTON_START_Y + (BUTTON_HEIGHT * ind - 1), BUTTON_WIDTH, BUTTON_HEIGHT, mob.getRegistryName().toString(), mob));
 		}
+
+		button_done = ind++;
+		this.buttonList.add(new GuiButtonExt(button_done, BUTTON_X, BUTTON_START_Y + (BUTTON_HEIGHT * button_done) + BUTTON_HEIGHT, BUTTON_WIDTH, BUTTON_HEIGHT, "yatm.gui.done"));
 	}
 
 	protected void actionPerformed(GuiButton button) throws IOException
@@ -69,6 +80,11 @@ public class GuiSelectMob extends GuiScreen
 			PlayerMob mob = ((GuiButtonPlayerMob)button).getMob();
 			selected = mob;
 			renderMob = null;
+		}
+
+		if(button.id == button_done)
+		{
+			Minecraft.getMinecraft().displayGuiScreen(null);
 		}
 
 		super.actionPerformed(button);

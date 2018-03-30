@@ -6,7 +6,7 @@ import net.minecraftforge.registries.IForgeRegistryEntry;
 /**
  * Created by Sam on 31/03/2018.
  */
-public class PlayerMob extends IForgeRegistryEntry.Impl<PlayerMob>
+public abstract class PlayerMob extends IForgeRegistryEntry.Impl<PlayerMob>
 {
 	public PlayerMob()
 	{
@@ -17,6 +17,8 @@ public class PlayerMob extends IForgeRegistryEntry.Impl<PlayerMob>
 	{
 
 	}
+
+	public abstract Class getMobClass();
 
 	public boolean isHostileMob()
 	{

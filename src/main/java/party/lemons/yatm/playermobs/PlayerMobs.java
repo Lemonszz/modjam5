@@ -29,8 +29,8 @@ public class PlayerMobs
 	public static void onRegisterPlayerMob(RegistryEvent.Register<PlayerMob> event)
 	{
 		event.getRegistry().registerAll(
-				new PlayerMob().setRegistryName(ModConstants.MODID, "zombie"),
-				new PlayerMob().setRegistryName(ModConstants.MODID, "player")
+				new PlayerMobZombie().setRegistryName(ModConstants.MODID, "zombie"),
+				new PlayerMobHuman().setRegistryName(ModConstants.MODID, "player")
 		);
 	}
 }

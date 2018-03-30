@@ -4,7 +4,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.MoverType;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.world.World;
@@ -17,7 +16,6 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import party.lemons.yatm.capability.PlayerData;
 
 import java.util.HashMap;
-import java.util.UUID;
 
 /**
  * Created by Sam on 31/03/2018.
@@ -32,9 +30,12 @@ public class RenderEvents
 	@SubscribeEvent
 	public static void onUpdate(TickEvent.PlayerTickEvent event)
 	{
+		if(event.phase != TickEvent.Phase.START)
+			return;
+
 		cache.forEach((p, e) ->
 				{
-					e.setPosition(p.posX, p.posY, p.posZ);
+					e.setPosition(p.posX, p.posY + 100, p.posZ);
 
 					e.rotationPitch = p.rotationPitch;
 					e.rotationYaw = p.rotationYaw;

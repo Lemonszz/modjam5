@@ -3,6 +3,7 @@ package party.lemons.yatm.events;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.RenderManager;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
@@ -11,10 +12,12 @@ import net.minecraftforge.client.event.RenderPlayerEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
+import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import party.lemons.yatm.capability.PlayerData;
 
+import java.lang.reflect.Field;
 import java.util.HashMap;
 
 /**
@@ -46,6 +49,17 @@ public class RenderEvents
 					e.prevPosX = p.prevPosX;
 					e.prevPosY = p.prevPosY;
 					e.prevPosZ = p.prevPosZ;
+					e.swingProgress = p.swingProgress;
+					e.swingProgressInt = p.swingProgressInt;
+					e.swingingHand = p.swingingHand;
+					e.limbSwing = p.limbSwing;
+					e.limbSwingAmount = p.limbSwingAmount;
+					e.prevLimbSwingAmount = p.prevLimbSwingAmount;
+
+					if(p.isBurning())
+					{
+						e.setFire(2);
+					}
 
 					e.getEquipmentAndArmor();
 					e.setItemStackToSlot(EntityEquipmentSlot.CHEST, p.getItemStackFromSlot(EntityEquipmentSlot.CHEST));
@@ -79,21 +93,15 @@ public class RenderEvents
 		if(cache.get(player) != null)
 		{
 			EntityLivingBase toDraw = cache.get(player);
-			/*toDraw.onLivingUpdate();
-			//toDraw.onEntityUpdate();
-			//toDraw.onUpdate();
-			toDraw.rotationPitch = player.rotationPitch;
-			toDraw.rotationYaw = player.rotationYaw;
-			toDraw.rotationYawHead = player.rotationYawHead;
-			toDraw.prevLimbSwingAmount = player.prevLimbSwingAmount;
-			toDraw.prevDistanceWalkedModified = player.prevDistanceWalkedModified;
-			toDraw.prevPosX = player.prevPosX;
-			toDraw.prevPosY = player.prevPosY;
-			toDraw.prevPosZ = player.prevPosZ;*/
-
-			//toDraw.setPositionAndRotationDirect(player.posX, player.posY, player.posZ, player.rotationYaw, player.rotationPitch, 1, false);
-			//toDraw.setPosition(player.posX, player.posY, player.posZ);
 			GlStateManager.translate(-player.posX, -player.posY, -player.posZ);
+
+			toDraw.swingProgress = player.swingProgress;
+			toDraw.swingProgressInt = player.swingProgressInt;
+			toDraw.swingingHand = player.swingingHand;
+			toDraw.limbSwing = player.limbSwing;
+			toDraw.limbSwingAmount = player.limbSwingAmount;
+			toDraw.prevLimbSwingAmount = player.prevLimbSwingAmount;
+
 			rendermanager.renderEntity(toDraw, player.posX, player.posY, player.posZ, player.rotationYaw, event.getPartialRenderTick(), false);
 		}
 		else

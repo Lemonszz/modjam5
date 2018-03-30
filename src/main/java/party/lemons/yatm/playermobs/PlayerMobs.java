@@ -28,13 +28,17 @@ public class PlayerMobs
 	@GameRegistry.ObjectHolder("spider")
 	public static PlayerMob SPIDER;
 
+
 	@SubscribeEvent
 	public static void onRegisterPlayerMob(RegistryEvent.Register<PlayerMob> event)
 	{
 		event.getRegistry().registerAll(
 				new PlayerMobZombie().setRegistryName(ModConstants.MODID, "zombie"),
 				new PlayerMobHuman().setRegistryName(ModConstants.MODID, "player"),
-				new PlayerMobSpider().setRegistryName(ModConstants.MODID, "spider")
+				new PlayerMobSpider().setRegistryName(ModConstants.MODID, "spider"),
+				new PlayerMobSkeleton().setRegistryName(ModConstants.MODID, "skeleton"),
+				new PlayerMobSquid().setRegistryName(ModConstants.MODID, "squid"),
+				new PlayerMobLlama().setRegistryName(ModConstants.MODID, "llama")
 		);
 	}
 }

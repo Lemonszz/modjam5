@@ -10,6 +10,7 @@ import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import party.lemons.yatm.capability.PlayerData;
 import party.lemons.yatm.config.ModConstants;
+import party.lemons.yatm.message.Messages;
 import party.lemons.yatm.proxy.IProxy;
 
 /**
@@ -30,6 +31,8 @@ public class YATM
 	public static void preInit(FMLPreInitializationEvent event)
 	{
 		proxy.preInit(event);
+		Messages.init();
+
 		CapabilityManager.INSTANCE.register(PlayerData.class, new PlayerData.Storage(), PlayerData.Impl::new);
 	}
 

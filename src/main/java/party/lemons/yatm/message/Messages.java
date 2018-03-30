@@ -13,5 +13,6 @@ public class Messages
 	public static void init()
 	{
 		YATM.NETWORK.registerMessage(MessageSetMobFromGui.Handler.class, MessageSetMobFromGui.class, id++, Side.SERVER);
+		YATM.NETWORK.registerMessage(MessageSetMobFromServer.Handler.class, MessageSetMobFromServer.class, id++, Side.CLIENT);
 	}
 }

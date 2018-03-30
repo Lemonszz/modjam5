@@ -101,7 +101,6 @@ public class RenderEvents
 			toDraw.limbSwing = player.limbSwing;
 			toDraw.limbSwingAmount = player.limbSwingAmount;
 			toDraw.prevLimbSwingAmount = player.prevLimbSwingAmount;
-
 			rendermanager.renderEntity(toDraw, player.posX, player.posY, player.posZ, player.rotationYaw, event.getPartialRenderTick(), false);
 		}
 		else

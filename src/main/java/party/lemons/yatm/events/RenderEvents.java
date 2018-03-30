@@ -16,9 +16,12 @@ import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import party.lemons.yatm.capability.PlayerData;
+import party.lemons.yatm.playermobs.PlayerMob;
+import party.lemons.yatm.playermobs.PlayerMobRegistry;
 
 import java.lang.reflect.Field;
 import java.util.HashMap;
+import java.util.UUID;
 
 /**
  * Created by Sam on 31/03/2018.
@@ -28,6 +31,7 @@ import java.util.HashMap;
 public class RenderEvents
 {
 	public static HashMap<EntityPlayer, EntityLivingBase> cache = new HashMap<>();
+	public static HashMap<UUID, String> type_cache = new HashMap<>();
 
 
 	@SubscribeEvent
@@ -84,7 +88,7 @@ public class RenderEvents
 		event.setCanceled(true);
 		EntityPlayer player = event.getEntityPlayer();
 
-		if(!cache.containsKey(player) || cache.get(player) == null || player.getCapability(PlayerData.CAPABILITY, null).getMob().getMobClass() != cache.get(player).getClass())
+		if(!cache.containsKey(player) || cache.get(player) == null || PlayerMobRegistry.fromString(type_cache.get(player.getUniqueID())).getMobClass() != cache.get(player).getClass())
 		{
 			cachePlayer(player);
 		}
@@ -92,8 +96,9 @@ public class RenderEvents
 		RenderManager rendermanager = Minecraft.getMinecraft().getRenderManager();
 		if(cache.get(player) != null)
 		{
+			GlStateManager.pushMatrix();
 			EntityLivingBase toDraw = cache.get(player);
-			GlStateManager.translate(-player.posX, -player.posY, -player.posZ);
+			GlStateManager.translate(-Minecraft.getMinecraft().player.posX, -Minecraft.getMinecraft().player.posY, -Minecraft.getMinecraft().player.posZ);
 
 			toDraw.swingProgress = player.swingProgress;
 			toDraw.swingProgressInt = player.swingProgressInt;
@@ -102,16 +107,31 @@ public class RenderEvents
 			toDraw.limbSwingAmount = player.limbSwingAmount;
 			toDraw.prevLimbSwingAmount = player.prevLimbSwingAmount;
 			rendermanager.renderEntity(toDraw, player.posX, player.posY, player.posZ, player.rotationYaw, event.getPartialRenderTick(), false);
+			GlStateManager.popMatrix();
 		}
 		else
 			event.setCanceled(false);
+	}
+
+	@SubscribeEvent
+	public static void onClientTick(TickEvent.ClientTickEvent event)
+	{
+		if(event.phase == TickEvent.Phase.END)
+		{
+			if(Minecraft.getMinecraft().world == null || Minecraft.getMinecraft().player == null)
+			{
+				cache.clear();
+				type_cache.clear();
+			}
+		}
 	}
 
 	public static void cachePlayer(EntityPlayer player)
 	{
 		try
 		{
-			Class livingClass = player.getCapability(PlayerData.CAPABILITY, null).getMob().getMobClass();
+			PlayerMob mob = PlayerMobRegistry.fromString(type_cache.get(player.getUniqueID()));
+			Class livingClass = mob.getMobClass();
 			EntityLivingBase inst = (EntityLivingBase) livingClass.getConstructor(World.class).newInstance(player.world);
 
 			cache.put(player, inst);

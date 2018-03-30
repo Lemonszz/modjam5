@@ -9,6 +9,7 @@ import net.minecraftforge.fml.common.network.ByteBufUtils;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
+import party.lemons.yatm.YATM;
 import party.lemons.yatm.capability.PlayerData;
 import party.lemons.yatm.events.PlayerEvents;
 import party.lemons.yatm.playermobs.PlayerMob;
@@ -72,6 +73,7 @@ public class MessageSetMobFromGui implements IMessage
 							e.printStackTrace();
 						}
 
+						YATM.NETWORK.sendToAll(new MessageSendPlayerInfo(serverPlayer.getUniqueID(), message.mob.getRegistryName().toString()));
 					});
 
 			return null;

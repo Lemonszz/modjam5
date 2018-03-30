@@ -9,6 +9,7 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import party.lemons.yatm.capability.PlayerData;
 import party.lemons.yatm.playermobs.PlayerMob;
+import party.lemons.yatm.playermobs.PlayerMobRegistry;
 
 /**
  * Created by Sam on 31/03/2018.
@@ -26,7 +27,8 @@ public class MessageSetMobFromGui implements IMessage
 	@Override
 	public void fromBytes(ByteBuf buf)
 	{
-		ByteBufUtils.readUTF8String(buf);
+		String s = ByteBufUtils.readUTF8String(buf);
+		mob = PlayerMobRegistry.fromString(s);
 	}
 
 	@Override
@@ -46,7 +48,11 @@ public class MessageSetMobFromGui implements IMessage
 					{
 						PlayerData data = serverPlayer.getCapability(PlayerData.CAPABILITY, null);
 						data.setMob(message.mob);
-
+						System.out.println(message.mob.getRegistryName());
+						System.out.println(message.mob.getRegistryName());
+						System.out.println(message.mob.getRegistryName());
+						System.out.println(message.mob.getRegistryName());
+						System.out.println(message.mob.getRegistryName());
 					});
 
 			return null;

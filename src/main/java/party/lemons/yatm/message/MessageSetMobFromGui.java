@@ -48,11 +48,6 @@ public class MessageSetMobFromGui implements IMessage
 					{
 						PlayerData data = serverPlayer.getCapability(PlayerData.CAPABILITY, null);
 						data.setMob(message.mob);
-						System.out.println(message.mob.getRegistryName());
-						System.out.println(message.mob.getRegistryName());
-						System.out.println(message.mob.getRegistryName());
-						System.out.println(message.mob.getRegistryName());
-						System.out.println(message.mob.getRegistryName());
 					});
 
 			return null;

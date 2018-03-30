@@ -6,6 +6,7 @@ import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.MoverType;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.world.World;
 import net.minecraftforge.client.event.RenderPlayerEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -35,17 +36,29 @@ public class RenderEvents
 				{
 					e.setPosition(p.posX, p.posY, p.posZ);
 
-					e.onLivingUpdate();
-					//toDraw.onEntityUpdate();
-					//toDraw.onUpdate();
 					e.rotationPitch = p.rotationPitch;
 					e.rotationYaw = p.rotationYaw;
 					e.rotationYawHead = p.rotationYawHead;
 					e.prevLimbSwingAmount = p.prevLimbSwingAmount;
+					e.prevRotationYawHead = p.prevRotationYawHead;
 					e.prevDistanceWalkedModified = p.prevDistanceWalkedModified;
 					e.prevPosX = p.prevPosX;
 					e.prevPosY = p.prevPosY;
 					e.prevPosZ = p.prevPosZ;
+
+					e.getEquipmentAndArmor();
+					e.setItemStackToSlot(EntityEquipmentSlot.CHEST, p.getItemStackFromSlot(EntityEquipmentSlot.CHEST));
+					e.setItemStackToSlot(EntityEquipmentSlot.LEGS, p.getItemStackFromSlot(EntityEquipmentSlot.LEGS));
+					e.setItemStackToSlot(EntityEquipmentSlot.FEET, p.getItemStackFromSlot(EntityEquipmentSlot.FEET));
+					e.setItemStackToSlot(EntityEquipmentSlot.HEAD, p.getItemStackFromSlot(EntityEquipmentSlot.HEAD));
+					e.setItemStackToSlot(EntityEquipmentSlot.OFFHAND, p.getItemStackFromSlot(EntityEquipmentSlot.OFFHAND));
+					e.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, p.getItemStackFromSlot(EntityEquipmentSlot.MAINHAND));
+
+					e.setSneaking(p.isSneaking());
+					e.onLivingUpdate();
+					e.onEntityUpdate();
+					e.onUpdate();
+
 				}
 		);
 	}
@@ -93,7 +106,7 @@ public class RenderEvents
 			Class livingClass = player.getCapability(PlayerData.CAPABILITY, null).getMob().getMobClass();
 			EntityLivingBase inst = (EntityLivingBase) livingClass.getConstructor(World.class).newInstance(player.world);
 
-			cache.put(player.getUniqueID(), inst);
+			cache.put(player, inst);
 		}
 		catch(Exception e)
 		{

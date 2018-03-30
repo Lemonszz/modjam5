@@ -20,6 +20,7 @@ public class EventsTest
 	{
 		if(event.getEntityPlayer().world.isRemote)
 		{
+			RenderEvents.cache.clear();
 			Minecraft.getMinecraft().displayGuiScreen(new GuiSelectMob());
 		}
 	}

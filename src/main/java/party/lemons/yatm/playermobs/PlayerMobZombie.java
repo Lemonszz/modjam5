@@ -5,7 +5,7 @@ import net.minecraft.entity.monster.EntityZombie;
 /**
  * Created by Sam on 31/03/2018.
  */
-public class PlayerMobZombie extends PlayerMob
+public class PlayerMobZombie extends PlayerMobBurnable
 {
 	@Override
 	public Class getMobClass()

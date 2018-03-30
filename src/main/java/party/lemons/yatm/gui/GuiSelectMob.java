@@ -11,6 +11,7 @@ import net.minecraftforge.fml.client.config.GuiButtonExt;
 import party.lemons.yatm.YATM;
 import party.lemons.yatm.capability.PlayerData;
 import party.lemons.yatm.events.PlayerEvents;
+import party.lemons.yatm.events.RenderEvents;
 import party.lemons.yatm.message.MessageSetMobFromGui;
 import party.lemons.yatm.playermobs.PlayerMob;
 import party.lemons.yatm.playermobs.PlayerMobRegistry;
@@ -89,10 +90,17 @@ public class GuiSelectMob extends GuiScreen
 		if(button.id == button_done)
 		{
 			YATM.NETWORK.sendToServer(new MessageSetMobFromGui(selected));
-			PlayerEvents.setPlayerSize(Minecraft.getMinecraft().player, renderMob.width, renderMob.height, renderMob.getEyeHeight());
-			Minecraft.getMinecraft().player.setEntityBoundingBox(renderMob.getEntityBoundingBox().offset(Minecraft.getMinecraft().player.getPosition()));
+			if(selected != PlayerMobs.PLAYER)
+			{
+				PlayerEvents.setPlayerSize(Minecraft.getMinecraft().player, renderMob.width, renderMob.height, renderMob.getEyeHeight());
+				Minecraft.getMinecraft().player.setEntityBoundingBox(renderMob.getEntityBoundingBox().offset(Minecraft.getMinecraft().player.getPosition()));
+			}
+			else
+			{
+				PlayerEvents.setPlayerSize(Minecraft.getMinecraft().player, 0.6F, 1.8F, Minecraft.getMinecraft().player.getDefaultEyeHeight());
+			}
 			Minecraft.getMinecraft().player.getCapability(PlayerData.CAPABILITY, null).setMob(selected);
-
+			RenderEvents.cache.clear();
 			Minecraft.getMinecraft().displayGuiScreen(null);
 		}
 

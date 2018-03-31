@@ -1,6 +1,7 @@
 package party.lemons.yatm.playermobs;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 
 /**

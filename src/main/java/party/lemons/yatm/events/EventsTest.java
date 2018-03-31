@@ -18,9 +18,10 @@ public class EventsTest
 	@SideOnly(Side.CLIENT)
 	public static void onTest(PlayerInteractEvent.RightClickBlock event)
 	{
-		if(event.getEntityPlayer().world.isRemote)
+		if(event.getEntityPlayer().world.isRemote && event.getEntityPlayer().isSneaking())
 		{
 			RenderEvents.cache.clear();
+			RenderEvents.type_cache.clear();
 			Minecraft.getMinecraft().displayGuiScreen(new GuiSelectMob());
 		}
 	}

@@ -72,7 +72,7 @@ public class MessageSetMobFromGui implements IMessage
 						{
 							e.printStackTrace();
 						}
-
+						message.mob.onInitialSpawn(serverPlayer);
 						YATM.NETWORK.sendToAll(new MessageSendPlayerInfo(serverPlayer.getUniqueID(), message.mob.getRegistryName().toString()));
 					});
 

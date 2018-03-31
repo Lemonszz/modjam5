@@ -35,4 +35,9 @@ public abstract class PlayerMob extends IForgeRegistryEntry.Impl<PlayerMob>
 	{
 		return false;
 	}
+
+	public void onInitialSpawn(EntityPlayer player)
+	{
+
+	}
 }

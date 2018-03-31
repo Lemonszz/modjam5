@@ -37,4 +37,9 @@ public class PlayerMobSquid extends PlayerMob
 			}
 		}
 	}
+
+	public double getMeleeAttackFactor()
+	{
+		return 0.0D;
+	}
 }

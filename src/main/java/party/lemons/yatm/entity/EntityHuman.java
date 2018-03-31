@@ -1,22 +1,27 @@
 package party.lemons.yatm.entity;
 
 import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityCreature;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.*;
 import net.minecraft.entity.ai.*;
 import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
+import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
+import party.lemons.yatm.util.ModUtils;
+
+import javax.annotation.Nullable;
 
 /**
  * Created by Sam on 31/03/2018.
@@ -68,9 +73,11 @@ public class EntityHuman extends EntityCreature
 		this.getAttributeMap().registerAttribute(SharedMonsterAttributes.ATTACK_DAMAGE);
 
 		this.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(35.0D);
-		this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.25D);
+		this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.3D);
 		this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(3.0D);
 		this.getEntityAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(2.0D);
+		this.getEntityAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(2.0D);
+		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(20D);
 	}
 
 
@@ -86,6 +93,7 @@ public class EntityHuman extends EntityCreature
 
 	public boolean attackEntityAsMob(Entity entityIn)
 	{
+		this.swingArm(EnumHand.MAIN_HAND);
 		float f = (float)this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).getAttributeValue();
 		int i = 0;
 
@@ -160,4 +168,55 @@ public class EntityHuman extends EntityCreature
 		return doesDespawn;
 	}
 
+	@Override
+	protected void setEquipmentBasedOnDifficulty(DifficultyInstance difficulty)
+	{
+		super.setEquipmentBasedOnDifficulty(difficulty);
+
+		Item chest = ModUtils.choose(rand, Items.IRON_CHESTPLATE, Items.LEATHER_CHESTPLATE, Items.GOLDEN_CHESTPLATE, Items.LEATHER_CHESTPLATE, Items.LEATHER_CHESTPLATE);
+		Item feet = ModUtils.choose(rand, Items.IRON_BOOTS, Items.LEATHER_BOOTS, Items.GOLDEN_BOOTS, Items.LEATHER_BOOTS, Items.LEATHER_BOOTS);
+		Item legs = ModUtils.choose(rand, Items.IRON_LEGGINGS, Items.LEATHER_LEGGINGS, Items.GOLDEN_LEGGINGS, Items.LEATHER_LEGGINGS, Items.LEATHER_LEGGINGS);
+		Item head = ModUtils.choose(rand, Items.IRON_HELMET, Items.LEATHER_HELMET, Items.GOLDEN_HELMET, Items.LEATHER_HELMET, Items.LEATHER_HELMET);
+
+		if(ModUtils.percentChance(rand, 20))
+		{
+			if(ModUtils.percentChance(rand, 10))
+			{
+				chest = Items.DIAMOND_CHESTPLATE;
+				legs = Items.DIAMOND_LEGGINGS;
+				head = Items.DIAMOND_HELMET;
+				feet = Items.DIAMOND_BOOTS;
+			}
+		}
+
+		if(ModUtils.percentChance(rand, 70))
+		{
+			if(ModUtils.percentChance(rand, 25))
+				this.setItemStackToSlot(EntityEquipmentSlot.CHEST, new ItemStack(chest));
+			if(ModUtils.percentChance(rand, 25))
+				this.setItemStackToSlot(EntityEquipmentSlot.FEET, new ItemStack(feet));
+			if(ModUtils.percentChance(rand, 25))
+				this.setItemStackToSlot(EntityEquipmentSlot.HEAD, new ItemStack(head));
+			if(ModUtils.percentChance(rand, 25))
+				this.setItemStackToSlot(EntityEquipmentSlot.LEGS, new ItemStack(legs));
+		}
+
+		ItemStack main = new ItemStack(ModUtils.choose(rand, Items.GOLDEN_SWORD, Items.GOLDEN_AXE, Items.IRON_AXE, Items.IRON_SWORD));
+		if(ModUtils.percentChance(rand, 50))
+			this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, main);
+
+		if(world.rand.nextInt(10) == 0)
+		{
+			ItemStack off = new ItemStack(Items.SHIELD);
+			this.setItemStackToSlot(EntityEquipmentSlot.OFFHAND, off);
+		}
+	}
+
+	@Nullable
+	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata)
+	{
+		this.setEquipmentBasedOnDifficulty(difficulty);
+
+		return livingdata;
+	}
 }

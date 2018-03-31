@@ -1,6 +1,7 @@
 package party.lemons.yatm.events;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.gui.GuiMainMenu;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.RenderManager;
@@ -10,6 +11,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.world.World;
 import net.minecraftforge.client.event.RenderPlayerEvent;
+import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
@@ -81,6 +83,16 @@ public class RenderEvents
 
 				}
 		);
+	}
+
+	@SubscribeEvent
+	public static void onLivingDeath(LivingDeathEvent event)
+	{
+		if(event.getEntityLiving() == Minecraft.getMinecraft().player)
+		{
+			cache.clear();
+			type_cache.clear();
+		}
 	}
 
 	@SubscribeEvent

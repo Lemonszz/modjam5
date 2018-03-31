@@ -14,7 +14,6 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Rotation;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Rotations;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import net.minecraft.world.chunk.IChunkProvider;
@@ -27,7 +26,6 @@ import net.minecraftforge.fml.common.IWorldGenerator;
 import party.lemons.yatm.config.ModConstants;
 import party.lemons.yatm.entity.EntityHuman;
 
-import javax.annotation.Nullable;
 import java.util.Map;
 import java.util.Random;
 
@@ -38,14 +36,15 @@ public class GenPlayerHouse implements IWorldGenerator
 {
 	private static final ResourceLocation[] LOCATIONS = new ResourceLocation[]
 			{
-					new ResourceLocation(ModConstants.MODID, "player_house_1")
+					new ResourceLocation(ModConstants.MODID, "player_house_1"),
+					new ResourceLocation(ModConstants.MODID, "player_house_2")
 			};
 
 
 	@Override
 	public void generate(Random random, int chunkX, int chunkZ, World world, IChunkGenerator chunkGenerator, IChunkProvider chunkProvider)
 	{
-		if(random.nextInt(50) != 0)
+		if(random.nextInt(75) != 0)
 			return;
 
 		final BlockPos.MutableBlockPos basePos = new BlockPos.MutableBlockPos(8 + (chunkX * 16 + random.nextInt(16)), 100, 8 + (chunkZ * 16 + random.nextInt(16)));

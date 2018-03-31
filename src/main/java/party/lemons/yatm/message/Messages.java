@@ -15,5 +15,6 @@ public class Messages
 		YATM.NETWORK.registerMessage(MessageSetMobFromGui.Handler.class, MessageSetMobFromGui.class, id++, Side.SERVER);
 		YATM.NETWORK.registerMessage(MessageSetMobFromServer.Handler.class, MessageSetMobFromServer.class, id++, Side.CLIENT);
 		YATM.NETWORK.registerMessage(MessageSendPlayerInfo.Handler.class, MessageSendPlayerInfo.class, id++, Side.CLIENT);
+		YATM.NETWORK.registerMessage(MessageForceGui.Handler.class, MessageForceGui.class, id++, Side.CLIENT);
 	}
 }

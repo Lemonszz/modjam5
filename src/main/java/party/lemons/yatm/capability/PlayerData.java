@@ -23,10 +23,13 @@ public interface PlayerData
 
 	PlayerMob getMob();
 	void setMob(PlayerMob mob);
+	boolean hasSelected();
+	void setSelected(boolean selected);
 
 	class Impl implements PlayerData
 	{
 		private PlayerMob mob = PlayerMobs.PLAYER;
+		private boolean hasSelected = false;
 
 		@Override
 		public PlayerMob getMob()
@@ -39,6 +42,18 @@ public interface PlayerData
 		{
 			this.mob = mob;
 		}
+
+		@Override
+		public boolean hasSelected()
+		{
+			return hasSelected;
+		}
+
+		@Override
+		public void setSelected(boolean selected)
+		{
+			hasSelected = selected;
+		}
 	}
 
 	class Storage implements Capability.IStorage<PlayerData>
@@ -50,6 +65,7 @@ public interface PlayerData
 		{
 			NBTTagCompound tags = new NBTTagCompound();
 			tags.setString("mob", instance.getMob().getRegistryName().toString());
+			tags.setBoolean("selected", instance.hasSelected());
 
 			return tags;
 		}
@@ -61,6 +77,7 @@ public interface PlayerData
 
 			String mob = tags.getString("mob");
 			instance.setMob(PlayerMobRegistry.fromString(mob));
+			instance.setSelected(tags.getBoolean("selected"));
 		}
 	}
 

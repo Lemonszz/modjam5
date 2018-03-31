@@ -1,5 +1,6 @@
 package party.lemons.yatm.playermobs;
 
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.registries.IForgeRegistryEntry;
@@ -39,5 +40,15 @@ public abstract class PlayerMob extends IForgeRegistryEntry.Impl<PlayerMob>
 	public void onInitialSpawn(EntityPlayer player)
 	{
 
+	}
+
+	public void onKill(EntityPlayer player, EntityLivingBase target)
+	{
+
+	}
+
+	public double getMeleeAttackFactor()
+	{
+		return 1.0D;
 	}
 }

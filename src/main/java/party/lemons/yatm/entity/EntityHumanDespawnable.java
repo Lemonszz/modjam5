@@ -14,7 +14,6 @@ public class EntityHumanDespawnable extends EntityHuman
 	public EntityHumanDespawnable(World worldIn)
 	{
 		super(worldIn, true);
-		System.out.println("Ahh");
 	}
 
 	public boolean getCanSpawnHere()

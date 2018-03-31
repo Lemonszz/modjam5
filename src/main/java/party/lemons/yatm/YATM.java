@@ -11,6 +11,7 @@ import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import party.lemons.yatm.capability.PlayerData;
 import party.lemons.yatm.config.ModConstants;
 import party.lemons.yatm.entity.EntityInit;
+import party.lemons.yatm.gen.GenerationInit;
 import party.lemons.yatm.message.Messages;
 import party.lemons.yatm.proxy.IProxy;
 
@@ -33,6 +34,7 @@ public class YATM
 	{
 		proxy.preInit(event);
 		Messages.init();
+		GenerationInit.Init();
 
 		CapabilityManager.INSTANCE.register(PlayerData.class, new PlayerData.Storage(), PlayerData.Impl::new);
 	}

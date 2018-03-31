@@ -39,7 +39,9 @@ public class PlayerMobs
 				new PlayerMobSkeleton().setRegistryName(ModConstants.MODID, "skeleton"),
 				new PlayerMobSquid().setRegistryName(ModConstants.MODID, "squid"),
 				new PlayerMobLlama().setRegistryName(ModConstants.MODID, "llama"),
-				new PlayerMobCreeper().setRegistryName(ModConstants.MODID, "creeper")
+				new PlayerMobCreeper().setRegistryName(ModConstants.MODID, "creeper"),
+				new PlayerMobGhast().setRegistryName(ModConstants.MODID, "ghast"),
+				new PlayerMobBlaze().setRegistryName(ModConstants.MODID, "blaze")
 		);
 	}
 }

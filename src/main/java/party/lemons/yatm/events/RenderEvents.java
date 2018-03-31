@@ -7,6 +7,7 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.passive.EntitySquid;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.world.World;
@@ -45,7 +46,7 @@ public class RenderEvents
 
 		cache.forEach((p, e) ->
 				{
-					e.setPosition(p.posX, p.posY + 100, p.posZ);
+					e.setPosition(p.posX, p.posY, p.posZ);
 
 					e.rotationPitch = p.rotationPitch;
 					e.rotationYaw = p.rotationYaw;
@@ -63,12 +64,25 @@ public class RenderEvents
 					e.limbSwingAmount = p.limbSwingAmount;
 					e.prevLimbSwingAmount = p.prevLimbSwingAmount;
 
+					e.hurtTime = p.hurtTime;
+					if(p.getActiveHand() != null)
+						e.setActiveHand(p.getActiveHand());
+					else
+						e.resetActiveHand();
+
+					e.setVelocity(p.motionX, p.motionY, p.motionZ);
+					if(p != Minecraft.getMinecraft().player)
+					{
+						e.setAlwaysRenderNameTag(true);
+						e.setCustomNameTag(p.getName());
+					}
+
 					if(p.isBurning())
 					{
 						e.setFire(2);
 					}
 
-					e.getEquipmentAndArmor();
+					e.ticksExisted++;
 					e.setItemStackToSlot(EntityEquipmentSlot.CHEST, p.getItemStackFromSlot(EntityEquipmentSlot.CHEST));
 					e.setItemStackToSlot(EntityEquipmentSlot.LEGS, p.getItemStackFromSlot(EntityEquipmentSlot.LEGS));
 					e.setItemStackToSlot(EntityEquipmentSlot.FEET, p.getItemStackFromSlot(EntityEquipmentSlot.FEET));
@@ -77,10 +91,8 @@ public class RenderEvents
 					e.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, p.getItemStackFromSlot(EntityEquipmentSlot.MAINHAND));
 
 					e.setSneaking(p.isSneaking());
-					e.onLivingUpdate();
-					e.onEntityUpdate();
-					e.onUpdate();
-
+					if(Minecraft.getMinecraft().player != null)
+						e.onUpdate();
 				}
 		);
 	}

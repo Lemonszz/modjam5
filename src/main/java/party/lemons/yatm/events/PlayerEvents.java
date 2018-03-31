@@ -119,6 +119,7 @@ public class PlayerEvents
 			cachePlayer(player);
 		}
 
+
 		player.getCapability(PlayerData.CAPABILITY, null).getMob().onPlayerTick(player);
 	}
 

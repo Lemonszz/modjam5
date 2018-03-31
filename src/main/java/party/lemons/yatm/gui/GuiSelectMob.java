@@ -75,7 +75,7 @@ public class GuiSelectMob extends GuiScreen
 		}
 
 		button_done = ind++;
-		this.buttonList.add(new GuiButtonExt(button_done, BUTTON_X, BUTTON_START_Y + (BUTTON_HEIGHT * button_done + 1) + (BUTTON_HEIGHT * 3), BUTTON_WIDTH, BUTTON_HEIGHT, "yatm.gui.done"));
+		this.buttonList.add(new GuiButtonExt(button_done, BUTTON_X + (BUTTON_WIDTH * 2), BUTTON_START_Y + (BUTTON_HEIGHT * button_done + 1), BUTTON_WIDTH, BUTTON_HEIGHT, "yatm.gui.done"));
 	}
 
 	protected void actionPerformed(GuiButton button) throws IOException

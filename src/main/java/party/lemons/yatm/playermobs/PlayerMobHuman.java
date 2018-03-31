@@ -12,4 +12,9 @@ public class PlayerMobHuman extends PlayerMob
 	{
 		return EntityPlayer.class;
 	}
+
+	public boolean shouldMobsAttack()
+	{
+		return true;
+	}
 }

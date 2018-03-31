@@ -1,6 +1,7 @@
 package party.lemons.yatm.events;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiMainMenu;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.Entity;
@@ -118,10 +119,10 @@ public class RenderEvents
 	{
 		if(event.phase == TickEvent.Phase.END)
 		{
-			if(Minecraft.getMinecraft().world == null || Minecraft.getMinecraft().player == null)
+			if(Minecraft.getMinecraft().currentScreen instanceof GuiMainMenu)
 			{
-				cache.clear();
-				type_cache.clear();
+			//	cache.clear();
+			//	type_cache.clear();
 			}
 		}
 	}

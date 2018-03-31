@@ -2,17 +2,21 @@ package party.lemons.yatm.events;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityCreature;
+import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
+import net.minecraftforge.event.entity.living.LivingSetAttackTargetEvent;
 import net.minecraftforge.event.world.GetCollisionBoxesEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import party.lemons.yatm.capability.PlayerData;
+import party.lemons.yatm.playermobs.PlayerMob;
 
 import java.lang.reflect.Method;
 import java.util.HashMap;
@@ -24,6 +28,24 @@ import java.util.HashMap;
 public class PlayerEvents
 {
 
+	@SubscribeEvent
+	public static void onTarget(LivingSetAttackTargetEvent event)
+	{
+		if(event.getTarget() instanceof EntityPlayer)
+		{
+			EntityPlayer player = (EntityPlayer) event.getTarget();
+			PlayerMob mob = player.getCapability(PlayerData.CAPABILITY, null).getMob();
+
+			if(event.getEntityLiving() instanceof IMob)
+			{
+				if(!mob.shouldMobsAttack())
+				{
+					event.getEntityLiving().setRevengeTarget(null);
+					((EntityLiving)event.getEntityLiving()).setAttackTarget(null);
+				}
+			}
+		}
+	}
 
 	@SubscribeEvent
 	public static void onUpdate(TickEvent.PlayerTickEvent event)

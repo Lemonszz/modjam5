@@ -20,6 +20,7 @@ public class PlayerMobSpider extends PlayerMob
 		if(entityPlayer.collidedHorizontally)
 		{
 			entityPlayer.motionY = 0.25;
+			entityPlayer.fallDistance = 0;
 		}
 	}
 }

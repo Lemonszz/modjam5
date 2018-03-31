@@ -54,7 +54,7 @@ public class MessageSetMobFromGui implements IMessage
 					{
 						PlayerData data = serverPlayer.getCapability(PlayerData.CAPABILITY, null);
 						data.setMob(message.mob);
-
+						data.setSelected(true);
 						try
 						{
 							if(message.mob != PlayerMobs.PLAYER)

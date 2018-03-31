@@ -34,8 +34,8 @@ public class EntityInit
 				createEntityEntry("human", EntityHuman.class, 0x124574, 0xABCEFD),
 				EntityEntryBuilder.create().entity(EntityHumanDespawnable.class).id(new ResourceLocation(ModConstants.MODID, "human_despawnable"), ind++)
 						.name("human_despawnable").tracker(60, 3, false)
-						.spawn(EnumCreatureType.AMBIENT, 100, 1, 1, allBiomes)
-						.spawn(EnumCreatureType.MONSTER, 100, 1, 1, allBiomes)
+						.spawn(EnumCreatureType.AMBIENT, 2, 1, 1, allBiomes)
+						.spawn(EnumCreatureType.MONSTER, 40, 1, 1, allBiomes)
 						.build()
 		);
 	}

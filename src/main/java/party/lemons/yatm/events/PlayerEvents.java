@@ -109,7 +109,7 @@ public class PlayerEvents
 
 		EntityPlayer player = event.player;
 
-		if(!player.getCapability(PlayerData.CAPABILITY, null).hasSelected() && !player.world.isRemote)
+		if(player.isEntityAlive() && !player.getCapability(PlayerData.CAPABILITY, null).hasSelected() && !player.world.isRemote)
 		{
 			YATM.NETWORK.sendTo(new MessageForceGui(), (EntityPlayerMP) player);
 		}

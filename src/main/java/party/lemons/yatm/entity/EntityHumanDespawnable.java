@@ -1,5 +1,6 @@
 package party.lemons.yatm.entity;
 
+import net.minecraft.entity.monster.IMob;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.EnumSkyBlock;
@@ -8,7 +9,7 @@ import net.minecraft.world.World;
 /**
  * Created by Sam on 31/03/2018.
  */
-public class EntityHumanDespawnable extends EntityHuman
+public class EntityHumanDespawnable extends EntityHuman implements IMob
 {
 
 	public EntityHumanDespawnable(World worldIn)
@@ -18,6 +19,9 @@ public class EntityHumanDespawnable extends EntityHuman
 
 	public boolean getCanSpawnHere()
 	{
+		if(rand.nextInt(100) >= 10)
+			return false;
+
 		return this.world.getDifficulty() != EnumDifficulty.PEACEFUL && this.isValidLightLevel() && super.getCanSpawnHere();
 	}
 

@@ -1,5 +1,6 @@
 package party.lemons.yatm.playermobs;
 
+import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.monster.EntitySkeleton;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Enchantments;

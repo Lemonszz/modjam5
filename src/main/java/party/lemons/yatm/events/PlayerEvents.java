@@ -4,6 +4,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.monster.EntityCreeper;
 import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.DifficultyInstance;
@@ -16,6 +17,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import party.lemons.yatm.capability.PlayerData;
+import party.lemons.yatm.entity.EntityHuman;
 import party.lemons.yatm.playermobs.PlayerMob;
 
 import java.lang.reflect.Method;
@@ -39,6 +41,27 @@ public class PlayerEvents
 			if(event.getEntityLiving() instanceof IMob)
 			{
 				if(!mob.shouldMobsAttack())
+				{
+					event.getEntityLiving().setRevengeTarget(null);
+					((EntityLiving)event.getEntityLiving()).setAttackTarget(null);
+				}
+			}
+		}
+
+		if(event.getEntityLiving() instanceof EntityHuman)
+		{
+			if(event.getTarget() instanceof EntityCreeper)
+			{
+				event.getEntityLiving().setRevengeTarget(null);
+				((EntityLiving)event.getEntityLiving()).setAttackTarget(null);
+			}
+
+			if(event.getTarget() instanceof EntityPlayer)
+			{
+				EntityPlayer player = (EntityPlayer) event.getTarget();
+				PlayerMob mob = player.getCapability(PlayerData.CAPABILITY, null).getMob();
+
+				if(!mob.shouldPlayersAttack())
 				{
 					event.getEntityLiving().setRevengeTarget(null);
 					((EntityLiving)event.getEntityLiving()).setAttackTarget(null);

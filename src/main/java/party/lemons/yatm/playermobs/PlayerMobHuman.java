@@ -17,4 +17,9 @@ public class PlayerMobHuman extends PlayerMob
 	{
 		return true;
 	}
+
+	public boolean shouldPlayersAttack()
+	{
+		return false;
+	}
 }

@@ -9,6 +9,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.EntityEntry;
 import net.minecraftforge.fml.common.registry.EntityEntryBuilder;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 import party.lemons.yatm.config.ModConstants;
 
 import java.util.Collection;
@@ -22,8 +23,20 @@ public class EntityInit
 	@SubscribeEvent
 	public static void registerEntityEntry(RegistryEvent.Register<EntityEntry> event)
 	{
+		if(allBiomes == null)
+		{
+			Collection<Biome> allBiomesList = ForgeRegistries.BIOMES.getValuesCollection();
+			allBiomes = new Biome[allBiomesList.size()];
+			allBiomes = allBiomesList.toArray(allBiomes);
+		}
+
 		event.getRegistry().registerAll(
-				createEntityEntry("human", EntityHuman.class, 0x124574, 0xABCEFD)
+				createEntityEntry("human", EntityHuman.class, 0x124574, 0xABCEFD),
+				EntityEntryBuilder.create().entity(EntityHumanDespawnable.class).id(new ResourceLocation(ModConstants.MODID, "human_despawnable"), ind++)
+						.name("human_despawnable").tracker(60, 3, false)
+						.spawn(EnumCreatureType.AMBIENT, 100, 1, 1, allBiomes)
+						.spawn(EnumCreatureType.MONSTER, 100, 1, 1, allBiomes)
+						.build()
 		);
 	}
 

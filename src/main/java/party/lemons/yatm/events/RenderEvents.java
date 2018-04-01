@@ -15,6 +15,7 @@ import net.minecraftforge.client.event.RenderPlayerEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.gameevent.PlayerEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import net.minecraftforge.fml.relauncher.Side;
@@ -98,12 +99,22 @@ public class RenderEvents
 	}
 
 	@SubscribeEvent
+	public static void onEntityChangeDision(PlayerEvent.PlayerChangedDimensionEvent event)
+	{
+		if(event.player == Minecraft.getMinecraft().player)
+		{
+			cache.clear();
+			type_cache.clear();
+		}
+	}
+
+	@SubscribeEvent
 	public static void onLivingDeath(LivingDeathEvent event)
 	{
 		if(event.getEntityLiving() == Minecraft.getMinecraft().player)
 		{
-			cache.clear();
-			type_cache.clear();
+			cache.remove(Minecraft.getMinecraft().player);
+			type_cache.remove(Minecraft.getMinecraft().player.getUniqueID());
 		}
 	}
 
@@ -131,6 +142,7 @@ public class RenderEvents
 			toDraw.limbSwing = player.limbSwing;
 			toDraw.limbSwingAmount = player.limbSwingAmount;
 			toDraw.prevLimbSwingAmount = player.prevLimbSwingAmount;
+
 			rendermanager.renderEntity(toDraw, player.posX, player.posY, player.posZ, player.rotationYaw, event.getPartialRenderTick(), false);
 			GlStateManager.popMatrix();
 		}
@@ -145,8 +157,8 @@ public class RenderEvents
 		{
 			if(Minecraft.getMinecraft().currentScreen instanceof GuiMainMenu)
 			{
-			//	cache.clear();
-			//	type_cache.clear();
+				cache.clear();
+				type_cache.clear();
 			}
 		}
 	}

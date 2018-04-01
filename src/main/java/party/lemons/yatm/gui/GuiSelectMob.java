@@ -100,7 +100,8 @@ public class GuiSelectMob extends GuiScreen
 				PlayerEvents.setPlayerSize(Minecraft.getMinecraft().player, 0.6F, 1.8F, Minecraft.getMinecraft().player.getDefaultEyeHeight());
 			}
 			Minecraft.getMinecraft().player.getCapability(PlayerData.CAPABILITY, null).setMob(selected);
-			RenderEvents.cache.clear();
+			RenderEvents.cache.remove(Minecraft.getMinecraft().player);
+			RenderEvents.type_cache.remove(Minecraft.getMinecraft().player.getUniqueID());
 			Minecraft.getMinecraft().displayGuiScreen(null);
 		}
 

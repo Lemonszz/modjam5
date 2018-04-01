@@ -20,8 +20,8 @@ public class EventsTest
 	{
 		if(event.getEntityPlayer().world.isRemote && event.getEntityPlayer().isSneaking())
 		{
-			RenderEvents.cache.clear();
-			RenderEvents.type_cache.clear();
+			RenderEvents.cache.remove(Minecraft.getMinecraft().player);
+			RenderEvents.type_cache.remove(Minecraft.getMinecraft().player.getUniqueID());
 			Minecraft.getMinecraft().displayGuiScreen(new GuiSelectMob());
 		}
 	}

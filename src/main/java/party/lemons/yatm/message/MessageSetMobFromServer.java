@@ -11,6 +11,7 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import party.lemons.yatm.capability.PlayerData;
 import party.lemons.yatm.events.PlayerEvents;
+import party.lemons.yatm.events.RenderEvents;
 import party.lemons.yatm.playermobs.PlayerMob;
 import party.lemons.yatm.playermobs.PlayerMobRegistry;
 import party.lemons.yatm.playermobs.PlayerMobs;
@@ -48,7 +49,6 @@ public class MessageSetMobFromServer implements IMessage
 		public IMessage onMessage(MessageSetMobFromServer message, MessageContext ctx)
 		{
 			Minecraft.getMinecraft().addScheduledTask(() -> Minecraft.getMinecraft().player.getCapability(PlayerData.CAPABILITY, null).setMob(message.mob));
-
 			return null;
 		}
 	}

@@ -36,6 +36,7 @@ public class ClientProxy implements IProxy
 	@SideOnly(Side.CLIENT)
 	public void openSelectGui()
 	{
-		Minecraft.getMinecraft().displayGuiScreen(new GuiSelectMob());
+		if(!(Minecraft.getMinecraft().currentScreen instanceof GuiSelectMob))
+			Minecraft.getMinecraft().displayGuiScreen(new GuiSelectMob());
 	}
 }

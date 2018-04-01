@@ -44,23 +44,6 @@ public class EntityHuman extends EntityCreature
 		this.setSize(0.6F, 1.95F);
 	}
 
-	protected void initEntityAI()
-	{
-		this.tasks.addTask(0, new EntityAISwimming(this));
-		this.tasks.addTask(2, new EntityAIAttackMelee(this, 1.0D, false));
-		this.tasks.addTask(5, new EntityAIMoveTowardsRestriction(this, 1.0D));
-		this.tasks.addTask(7, new EntityAIWanderAvoidWater(this, 1.0D));
-		this.tasks.addTask(8, new EntityAIWatchClosest(this, EntityHuman.class, 8.0F));
-		this.tasks.addTask(8, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
-		this.tasks.addTask(8, new EntityAILookIdle(this));
-
-		this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityMob.class, true));
-		this.targetTasks.addTask(3, new EntityAINearestAttackableTarget(this, EntityAnimal.class, false));
-		this.targetTasks.addTask(3, new EntityAINearestAttackableTarget(this, EntityPlayer.class, true));
-
-		super.initEntityAI();
-	}
-
 	protected void entityInit()
 	{
 		super.entityInit();

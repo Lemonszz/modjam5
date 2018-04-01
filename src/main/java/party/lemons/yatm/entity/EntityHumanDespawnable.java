@@ -1,6 +1,10 @@
 package party.lemons.yatm.entity;
 
+import net.minecraft.entity.ai.*;
+import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.monster.IMob;
+import net.minecraft.entity.passive.EntityAnimal;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.EnumSkyBlock;
@@ -15,6 +19,22 @@ public class EntityHumanDespawnable extends EntityHuman implements IMob
 	public EntityHumanDespawnable(World worldIn)
 	{
 		super(worldIn, true);
+	}
+
+	protected void initEntityAI()
+	{
+		this.tasks.addTask(0, new EntityAISwimming(this));
+		this.tasks.addTask(2, new EntityAIAttackMelee(this, 1.0D, false));
+		this.tasks.addTask(5, new EntityAIMoveTowardsRestriction(this, 1.0D));
+		this.tasks.addTask(7, new EntityAIWanderAvoidWater(this, 1.0D));
+		this.tasks.addTask(8, new EntityAIWatchClosest(this, EntityHuman.class, 8.0F));
+		this.tasks.addTask(8, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
+		this.tasks.addTask(8, new EntityAILookIdle(this));
+
+		this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityMob.class, true));
+		this.targetTasks.addTask(3, new EntityAINearestAttackableTarget(this, EntityPlayer.class, true));
+
+		super.initEntityAI();
 	}
 
 	public boolean getCanSpawnHere()

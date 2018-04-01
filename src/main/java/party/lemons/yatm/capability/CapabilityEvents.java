@@ -35,9 +35,6 @@ public class CapabilityEvents
 		}
 	}
 
-	public static final DataParameter<String> MOB = EntityDataManager.createKey(EntityPlayer.class, DataSerializers.STRING);
-
-
 	@SubscribeEvent
 	public static void onPlayerLoggedIn(PlayerEvent.PlayerLoggedInEvent event)
 	{

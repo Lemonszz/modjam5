@@ -5,6 +5,7 @@ import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.gui.inventory.GuiInventory;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.client.config.GuiButtonExt;
@@ -71,11 +72,11 @@ public class GuiSelectMob extends GuiScreen
 		int ind = 0;
 		for(PlayerMob mob : PlayerMobRegistry.REGISTRY.getValuesCollection())
 		{
-			this.buttonList.add(new GuiButtonPlayerMob(ind++, BUTTON_X, BUTTON_START_Y + (BUTTON_HEIGHT * ind - 1), BUTTON_WIDTH, BUTTON_HEIGHT, mob.getRegistryName().toString(), mob));
+			this.buttonList.add(new GuiButtonPlayerMob(ind++, BUTTON_X, BUTTON_START_Y + (BUTTON_HEIGHT * ind - 1), BUTTON_WIDTH, BUTTON_HEIGHT, I18n.format(mob.getRegistryName().toString()), mob));
 		}
 
 		button_done = ind++;
-		this.buttonList.add(new GuiButtonExt(button_done, BUTTON_X + (BUTTON_WIDTH * 2), BUTTON_START_Y + (BUTTON_HEIGHT * button_done + 1), BUTTON_WIDTH, BUTTON_HEIGHT, "yatm.gui.done"));
+		this.buttonList.add(new GuiButtonExt(button_done, BUTTON_X + (BUTTON_WIDTH * 2), BUTTON_START_Y + (BUTTON_HEIGHT * button_done + 1), BUTTON_WIDTH, BUTTON_HEIGHT, I18n.format("yatm.gui.done")));
 	}
 
 	protected void actionPerformed(GuiButton button) throws IOException

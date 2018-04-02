@@ -14,11 +14,13 @@ import party.lemons.yatm.gui.GuiSelectMob;
 @Mod.EventBusSubscriber
 public class EventsTest
 {
+	static boolean DEBUG = false;
+
 	@SubscribeEvent
 	@SideOnly(Side.CLIENT)
 	public static void onTest(PlayerInteractEvent.RightClickBlock event)
 	{
-		if(event.getEntityPlayer().world.isRemote && event.getEntityPlayer().isSneaking())
+		if(DEBUG && event.getEntityPlayer().world.isRemote && event.getEntityPlayer().isSneaking())
 		{
 			RenderEvents.cache.remove(Minecraft.getMinecraft().player);
 			RenderEvents.type_cache.remove(Minecraft.getMinecraft().player.getUniqueID());

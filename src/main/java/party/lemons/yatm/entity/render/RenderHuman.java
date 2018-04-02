@@ -58,6 +58,13 @@ public class RenderHuman extends RenderBiped<EntityHuman>
 					new ResourceLocation(ModConstants.MODID, "textures/entity/skins/" + "shawstin.png"),
 					new ResourceLocation(ModConstants.MODID, "textures/entity/skins/" + "asus.png"),
 					new ResourceLocation(ModConstants.MODID, "textures/entity/skins/" + "jodha.png"),
+					new ResourceLocation(ModConstants.MODID, "textures/entity/skins/" + "para.png"),
+					new ResourceLocation(ModConstants.MODID, "textures/entity/skins/" + "para.png"),
+					new ResourceLocation(ModConstants.MODID, "textures/entity/skins/" + "snapp.png"),
+					new ResourceLocation(ModConstants.MODID, "textures/entity/skins/" + "nomad.png"),
+					new ResourceLocation(ModConstants.MODID, "textures/entity/skins/" + "black.png"),
+					new ResourceLocation(ModConstants.MODID, "textures/entity/skins/" + "oast.png"),
+					new ResourceLocation(ModConstants.MODID, "textures/entity/skins/" + "wou.png"),
 			};
 
 	public RenderHuman(RenderManager renderManagerIn)

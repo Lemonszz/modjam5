@@ -14,3 +14,6 @@ yatm:blaze.desc=Fire balls!
 
 yatm.gui.done=Done
 item.yatm.mob_ability.name=Ability
+
+entity.human.name=Human
+entity.human_despawnable.name=Human

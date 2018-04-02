@@ -36,7 +36,9 @@ public class EntityInit
 						.name("human_despawnable").tracker(60, 3, false)
 						.spawn(EnumCreatureType.AMBIENT, 2, 1, 1, allBiomes)
 						.spawn(EnumCreatureType.MONSTER, 40, 1, 1, allBiomes)
-						.build()
+						.build(),
+				EntityEntryBuilder.create().entity(EntityPlayerLLamaSpit.class).id(new ResourceLocation(ModConstants.MODID, "spit_player"), ind++)
+				.name("human_spit").tracker(60, 3, true).build()
 		);
 	}
 

@@ -5,6 +5,7 @@ import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.entity.monster.EntityZombieVillager;
 import net.minecraft.entity.passive.EntityVillager;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.BlockPos;
 
 /**
@@ -40,6 +41,27 @@ public class PlayerMobZombie extends PlayerMobBurnable
 			((EntityVillager) target).world.spawnEntity(entityzombievillager);
 			((EntityVillager) target).world.playEvent(null, 1026, new BlockPos(player), 0);
 		}
+	}
+
+	public void onActivateAbility(EntityPlayer player)
+	{
+		if(player.world.isRemote)
+			return;
+
+		EntityZombie zombie = new EntityZombie(player.world);
+		zombie.setPosition(player.posX, player.posY, player.posZ);
+		player.world.spawnEntity(zombie);
+	}
+
+	public boolean hasAbility()
+	{
+		return true;
+	}
+
+	@Override
+	public int getCooldownTime()
+	{
+		return 500;
 	}
 
 	public double getMeleeAttackFactor()

@@ -26,6 +26,7 @@ import net.minecraft.world.storage.loot.LootTable;
 import net.minecraftforge.fml.common.IWorldGenerator;
 import party.lemons.yatm.config.ModConstants;
 import party.lemons.yatm.entity.EntityHuman;
+import party.lemons.yatm.entity.EntityHumanInventory;
 
 import java.util.Map;
 import java.util.Random;
@@ -91,7 +92,7 @@ public class GenPlayerHouse implements IWorldGenerator
 			}
 			else if(data[0].equalsIgnoreCase("entity_player"))
 			{
-				EntityHuman human = new EntityHuman(world);
+				EntityHumanInventory human = new EntityHumanInventory(world);
 				human.setPosition(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5);
 				world.spawnEntity(human);
 

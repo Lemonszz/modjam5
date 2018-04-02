@@ -66,6 +66,10 @@ public class RenderEvents
 					e.prevLimbSwingAmount = p.prevLimbSwingAmount;
 
 					e.hurtTime = p.hurtTime;
+					p.collidedHorizontally = e.collidedHorizontally;
+					p.collidedVertically = e.collidedVertically;
+					p.collided = e.collided;
+
 					if(p.getActiveHand() != null)
 						e.setActiveHand(p.getActiveHand());
 					else

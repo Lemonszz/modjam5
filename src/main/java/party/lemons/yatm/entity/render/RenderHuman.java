@@ -1,26 +1,43 @@
 package party.lemons.yatm.entity.render;
 
+import com.mojang.authlib.GameProfile;
+import com.mojang.authlib.minecraft.MinecraftProfileTexture;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.AbstractClientPlayer;
+import net.minecraft.client.entity.EntityOtherPlayerMP;
+import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.model.ModelPlayer;
+import net.minecraft.client.network.NetworkPlayerInfo;
 import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.IImageBuffer;
+import net.minecraft.client.renderer.ImageBufferDownload;
+import net.minecraft.client.renderer.ThreadDownloadImageData;
 import net.minecraft.client.renderer.entity.RenderBiped;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.entity.layers.*;
-import net.minecraft.entity.player.EnumPlayerModelParts;
+import net.minecraft.client.renderer.texture.ITextureObject;
+import net.minecraft.client.resources.DefaultPlayerSkin;
+import net.minecraft.client.resources.SkinManager;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumHandSide;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.client.config.GuiUtils;
+import net.minecraftforge.fml.common.registry.EntityRegistry;
+import org.apache.commons.io.FilenameUtils;
 import party.lemons.yatm.config.ModConstants;
 import party.lemons.yatm.entity.EntityHuman;
+
+import java.util.UUID;
 
 /**
  * Created by Sam on 31/03/2018.
  */
 public class RenderHuman extends RenderBiped<EntityHuman>
 {
-	protected ResourceLocation[] skins = new ResourceLocation[]
+
+	protected ResourceLocation[] backup = new ResourceLocation[]
 			{
 					new ResourceLocation(ModConstants.MODID, "textures/entity/skins/" + "generic_1.png"),
 					new ResourceLocation(ModConstants.MODID, "textures/entity/skins/" + "generic_2.png"),
@@ -40,7 +57,6 @@ public class RenderHuman extends RenderBiped<EntityHuman>
 					new ResourceLocation(ModConstants.MODID, "textures/entity/skins/" + "panda.png"),
 					new ResourceLocation(ModConstants.MODID, "textures/entity/skins/" + "shawstin.png"),
 					new ResourceLocation(ModConstants.MODID, "textures/entity/skins/" + "asus.png"),
-					new ResourceLocation(ModConstants.MODID, "textures/entity/skins/" + "jodha.png"),
 					new ResourceLocation(ModConstants.MODID, "textures/entity/skins/" + "jodha.png"),
 			};
 
@@ -144,10 +160,12 @@ public class RenderHuman extends RenderBiped<EntityHuman>
 	@Override
 	protected ResourceLocation getEntityTexture(EntityHuman entity)
 	{
+
 		int var = entity.getDataManager().get(EntityHuman.VAR).intValue();
 		if(var == -1)
 			return super.getEntityTexture(entity);
 
-		return skins[var % skins.length];
+		return backup[var % backup.length];
 	}
+
 }

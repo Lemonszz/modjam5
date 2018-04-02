@@ -2,8 +2,10 @@ package party.lemons.yatm.playermobs;
 
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.registries.IForgeRegistryEntry;
+import party.lemons.yatm.item.ModItems;
 
 /**
  * Created by Sam on 31/03/2018.
@@ -39,7 +41,10 @@ public abstract class PlayerMob extends IForgeRegistryEntry.Impl<PlayerMob>
 
 	public void onInitialSpawn(EntityPlayer player)
 	{
-
+		if(hasAbility())
+		{
+			player.addItemStackToInventory(new ItemStack(ModItems.MOB_ABILITY));
+		}
 	}
 
 	public void onKill(EntityPlayer player, EntityLivingBase target)
@@ -51,4 +56,20 @@ public abstract class PlayerMob extends IForgeRegistryEntry.Impl<PlayerMob>
 	{
 		return 1.0D;
 	}
+
+	public int getCooldownTime()
+	{
+		return 100;
+	}
+
+	public void onActivateAbility(EntityPlayer player)
+	{
+
+	}
+	public boolean hasAbility()
+	{
+		return false;
+	}
+
+
 }

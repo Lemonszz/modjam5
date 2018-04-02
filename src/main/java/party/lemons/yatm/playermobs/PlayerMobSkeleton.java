@@ -36,6 +36,7 @@ public class PlayerMobSkeleton extends PlayerMobBurnable
 
 		ItemStack arrowStack = new ItemStack(Items.ARROW, 10);
 		player.addItemStackToInventory(arrowStack);
+		super.onInitialSpawn(player);
 	}
 
 	public double getMeleeAttackFactor()

@@ -13,20 +13,8 @@ import party.lemons.yatm.config.ModConstants;
 @GameRegistry.ObjectHolder(ModConstants.MODID)
 public class PlayerMobs
 {
-	@GameRegistry.ObjectHolder("zombie")
-	public static PlayerMob ZOMBIE;
-
-	@GameRegistry.ObjectHolder("skeleton")
-	public static PlayerMob SKELETON;
-
-	@GameRegistry.ObjectHolder("creeper")
-	public static PlayerMob CREEPER;
-
 	@GameRegistry.ObjectHolder("player")
 	public static PlayerMob PLAYER;
-
-	@GameRegistry.ObjectHolder("spider")
-	public static PlayerMob SPIDER;
 
 
 	@SubscribeEvent
@@ -40,7 +28,6 @@ public class PlayerMobs
 				new PlayerMobSquid().setRegistryName(ModConstants.MODID, "squid"),
 				new PlayerMobLlama().setRegistryName(ModConstants.MODID, "llama"),
 				new PlayerMobCreeper().setRegistryName(ModConstants.MODID, "creeper"),
-				new PlayerMobGhast().setRegistryName(ModConstants.MODID, "ghast"),
 				new PlayerMobBlaze().setRegistryName(ModConstants.MODID, "blaze")
 		);
 	}
